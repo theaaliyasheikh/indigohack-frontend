@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200;300&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+.navbar {
+  background-color: #fff;
+}
+
+.navbar-brand {
+  font-size: 1.9rem;
+  color: #565387;
+}
+
+.navbar a {
+  font-size: 18px;
+  text-transform: capitalize;
+}
+
+.navbar a:hover {
+  color: #0979c4;
+}
+
+.navbar-nav .nav-link.active,
+.navbar-nav .show>.nav-link {
+  font-weight: bold;
+  border-bottom: 3px solid;
+}
+
+.brand-name {
+  color: blue;
+  font-family: "Sofia", sans-serif;
+}
+
+/* Main Landing Section */
+
+#header {
+width: 100%;
+height: 80vh;
+margin-top: 70px;
+}
