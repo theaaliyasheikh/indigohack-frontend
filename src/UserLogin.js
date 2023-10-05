@@ -3,26 +3,40 @@ import axios from 'axios';
 import './UserLogin.css';
 import 'font-awesome/css/font-awesome.min.css';
 import { useNavigate } from 'react-router-dom';
+import { Icon } from 'react-icons-kit';
+import { eyeSlash } from 'react-icons-kit/fa/eyeSlash';
+import { eye } from 'react-icons-kit/fa/eye'
 
 function UserLogin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [type, setType] = useState('password');
+  const [icon, setIcon] = useState(eyeSlash);
   const [usertype, setUsertype] = useState('');
   const navigate = useNavigate();
-
+  
+  const handleToggle = () => {
+    if (type === 'password') {
+      setIcon(eye);
+      setType('text')
+    } else {
+      setIcon(eyeSlash)
+      setType('password')
+    }
+  }
 
   const handleLogin = (userData) => {
     // Make the API call using axios
     console.log(userData);
     axios.post('http://localhost:8080/login', userData)
-        .then((response) => {
-          localStorage.setItem("userData", JSON.stringify(response.data.data));
-          if (response.data.data.usertype === 'parent') navigate('/parentForm');
-          if (response.data.data.usertype === 'crew') navigate('/crew');
-        })
-        .catch((error) => {
-          console.error('Login failed:', error);
-        });
+      .then((response) => {
+        localStorage.setItem("userData", JSON.stringify(response.data.data));
+        if (response.data.data.usertype === 'parent') navigate('/parentForm');
+        if (response.data.data.usertype === 'crew') navigate('/crew');
+      })
+      .catch((error) => {
+        console.error('Login failed:', error);
+      });
   };
 
   function validateForm() {
@@ -123,8 +137,12 @@ function UserLogin() {
             <h1>USER LOGIN</h1>
             <form className="loginForm">
               <div><input className='username' type="text" placeholder='&#xf007;' onChange={(e) => setUsername(e.target.value)} /></div>
-              <div><input className='password' type="password" placeholder='&#xf023;' onChange={(e) => setPassword(e.target.value)} /></div>
-              <div><select className='selectElement' onChange={(e) => setUsertype(e.target.value)}>
+              <div><input className='password' type={type} placeholder='&#xf023;' value={password} onChange={(e) => setPassword(e.target.value)} />
+                <span className="eyeIcon" onClick={handleToggle}>
+                  <Icon className="eye" icon={icon} />
+                </span>
+              </div>
+              <div><select className='classic' onChange={(e) => setUsertype(e.target.value)}>
                 <option value="">Usertype</option>
                 <option value="parent"> Parent</option>
                 <option value="crew">Crew</option>
