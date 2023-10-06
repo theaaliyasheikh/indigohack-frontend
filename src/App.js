@@ -2,6 +2,7 @@ import React from 'react';
 import Crew from './Crew';
 import ParentForm from './ParentForm';
 import UserLogin from './UserLogin';
+import ThankYou from './ThankYou'
 import './App.css';
 import Navbar from './Navbar';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
@@ -16,6 +17,7 @@ const App = () => {
         <Route path='/userLogin' element={<UserLogin />} />
         <Route path='/parentForm' element={<><Navbar /><ParentForm /></>} />
         <Route path='/crew' element={<><Navbar /><Crew /></>} />
+        <Route path='/thankyou' element={<ThankYou />} />
         <Route path='*' element={<Navigate to='/' />} />
     </Routes>
 </div>

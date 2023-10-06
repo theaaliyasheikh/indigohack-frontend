@@ -128,11 +128,6 @@ function UserLogin() {
     <main>
       <div className="container1">
         <div>
-          {/* <div className="left">
-            <h1>Welcome to the Login Page of Indigo</h1>
-            <br />
-            <p>This is a simple login page created with the help of React.js, Node.JS, HTML, CSS, Bootstrap.</p>
-          </div> */}
           <div className="right">
             <h1>USER LOGIN</h1>
             <form className="loginForm">

@@ -1,8 +1,11 @@
 // import React from 'react';
 import './ParentForm.css';
+import axios from 'axios';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function ParentForm() {
+    const navigate = useNavigate();
     const [droppingGuardian, setDroppingGuardian] = useState('');
     const [minorName, setMinorName] = useState('');
     const [fromLocation, setFromLocation] = useState('');
@@ -17,12 +20,28 @@ function ParentForm() {
 
     function validate() {
         console.log({ droppingGuardian, minorName, fromLocation, toLocation, flightNumber, flightDate, departingGuardianAddress, departingGuardianTelephoneNumber, arrivalGuardianAddress, arrivalGuardianName, arrivalGuardianTelephone });
+
+        const user_data = { droppingGuardian, minorName, fromLocation, toLocation, flightNumber, flightDate, departingGuardianAddress, departingGuardianTelephoneNumber, arrivalGuardianAddress, arrivalGuardianName, arrivalGuardianTelephone }
+
+        saveParentData(user_data);
     }
+    
+    const saveParentData = (userData) => {
+        // Make the API call using axios
+        console.log(userData);
+        axios.post('http://localhost:8080/parentForm', userData)
+          .then((response) => {
+            console.log(response.data);
+            navigate("/thankyou");
+          })
+          .catch((error) => {
+            console.error('Submission failed:', error.message);
+          });
+      };    
 
     return (
         <div className='container'>
             <div className="parentForm">
-                {/* <p>Indigo<br />4 Copies of this form to be completed by parent / guardian in respect of an unaccompanied minor customer travels</p> */}
                 <p>I Mr. / Mrs. <input className='droppingGuardian' placeholder='Dropping Guardian' type="text" onChange={(e) => setDroppingGuardian(e.target.value)} />
                 Parent / Guardian of Master / Miss <input className='minorName' placeholder='Minor Name' type="text" onChange={(e) => setMinorName(e.target.value)} />
                     do hereby authorize IndiGo to carry unaccompanied aforesaid <br /><br /> minor customer between <input className='fromLocation' placeholder='Departure Location' type="text" onChange={(e) => setFromLocation(e.target.value)} />
@@ -55,11 +74,6 @@ function ParentForm() {
                 <label className='secondaryLabel'>Address: </label><input className='arrivalGuardianAddress' type="text" placeholder='Address' onChange={(e) => setArrivalGuardianAddress(e.target.value)} /> <br/><br/>
                 <label className='secondaryLabel'>Telephone: </label><input className='arrivalGuardianTelephone' type="number" placeholder='Contact Number' onChange={(e) => setArrivalGuardianTelephone(e.target.value)} />
                 </p>
-                {/* <p>
-                    Level 1 Tower C Global Business Park MG Road Gurgaon 122002 India T+91 124 435 2500 F+91 124 406 8536 <br />
-                    www goindigo in
-                </p> */}
-
                 <div><button id="bttn" className="btn" onClick={() => {
                     validate()
                 }}>Submit</button></div>
